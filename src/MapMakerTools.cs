@@ -8,15 +8,73 @@ namespace MapMakerTools
 
         public static void OnLoad()
         {
-            uConsole.RegisterCommand("MapMaking-HideTrees", new uConsole.DebugCommand(HideTrees));
-            uConsole.RegisterCommand("MapMaking-HideGrass", new uConsole.DebugCommand(HideGrass));
+            uConsole.RegisterCommand("MapMaking-FullTrees", new uConsole.DebugCommand(FullTrees));
+            uConsole.RegisterCommand("MapMaking-FullGrass", new uConsole.DebugCommand(FullGrass));
+            uConsole.RegisterCommand("MapMaking-Full", new uConsole.DebugCommand(Full));
+
+            uConsole.RegisterCommand("MapMaking-NoTrees", new uConsole.DebugCommand(NoTrees));
+            uConsole.RegisterCommand("MapMaking-NoGrass", new uConsole.DebugCommand(NoGrass));
+            uConsole.RegisterCommand("MapMaking-None", new uConsole.DebugCommand(None));
+
             uConsole.RegisterCommand("MapMaking-NoTerrainError", new uConsole.DebugCommand(NoTerrainError));
-            uConsole.RegisterCommand("MapMaking-All", new uConsole.DebugCommand(All));
-            uConsole.RegisterCommand("MapMaking-ResetAll", new uConsole.DebugCommand(ResetAll));
+
+            uConsole.RegisterCommand("MapMaking-ToggleBloom", new uConsole.DebugCommand(ToggleBloom));
+            uConsole.RegisterCommand("MapMaking-ToggleContrast", new uConsole.DebugCommand(ToggleContrast));
+            uConsole.RegisterCommand("MapMaking-ToggleVignette", new uConsole.DebugCommand(ToggleVignette));
+
+            uConsole.RegisterCommand("MapMaking-ShadowDistance", new uConsole.DebugCommand(ShadowDistance));
+            uConsole.RegisterCommand("MapMaking-NoShadows", new uConsole.DebugCommand(NoShadows));
+
+            uConsole.RegisterCommand("MapMaking-Reset", new uConsole.DebugCommand(Reset));
         }
 
-        private static void HideTrees()
+        private static void ShadowDistance()
         {
+            if (uConsole.GetNumParameters() != 1)
+            {
+                Debug.LogError("  Exactly one parameter required.");
+                return;
+            }
+
+            var distance = uConsole.GetFloat();
+            Debug.Log("  Changing shadow distance from " + QualitySettings.shadowDistance + " to " + distance);
+            QualitySettings.shadowDistance = distance;
+        }
+
+        private static void ToggleBloom()
+        {
+            GameManager.GetCameraEffects().m_AmplifyBloom.enabled = !GameManager.GetCameraEffects().m_AmplifyBloom.enabled;
+            Debug.Log("  Bloom is " + GetEnabledStatus(GameManager.GetCameraEffects().m_AmplifyBloom.enabled));
+        }
+
+        private static void ToggleContrast()
+        {
+            GameManager.GetCameraEffects().ContrastEnhanceEnable(!GameManager.GetCameraEffects().GetContrastEnhanceEnabled());
+            Debug.Log("  ContractEnhance is " + GetEnabledStatus(GameManager.GetCameraEffects().GetContrastEnhanceEnabled()));
+        }
+
+        private static void ToggleVignette()
+        {
+            GameManager.GetCameraEffects().m_Vignetting.enabled = !GameManager.GetCameraEffects().m_Vignetting.enabled;
+            Debug.Log("  Vignette is " + GetEnabledStatus(GameManager.GetCameraEffects().m_Vignetting.enabled));
+        }
+
+        private static void FullTrees()
+        {
+            Debug.Log("  Setting trees to maximum distance.");
+
+            Terrain[] terrains = Object.FindObjectsOfType<Terrain>();
+            foreach (Terrain eachTerrain in terrains)
+            {
+                eachTerrain.treeDistance = MAX_DISTANCE;
+                eachTerrain.treeBillboardDistance = MAX_DISTANCE;
+            }
+        }
+
+        private static void NoTrees()
+        {
+            Debug.Log("  Setting trees to invisible.");
+
             Terrain[] terrains = Object.FindObjectsOfType<Terrain>();
             foreach (Terrain eachTerrain in terrains)
             {
@@ -24,8 +82,27 @@ namespace MapMakerTools
             }
         }
 
-        private static void HideGrass()
+        private static void NoShadows()
         {
+            Debug.Log("  Disabling shadows.");
+            QualitySettings.shadows = ShadowQuality.Disable;
+        }
+
+        private static void FullGrass()
+        {
+            Debug.Log("  Setting grass to maximum density.");
+
+            Terrain[] terrains = Object.FindObjectsOfType<Terrain>();
+            foreach (Terrain eachTerrain in terrains)
+            {
+                eachTerrain.detailObjectDensity = 1;
+            }
+        }
+
+        private static void NoGrass()
+        {
+            Debug.Log("  Setting grass to invisible.");
+
             Terrain[] terrains = Object.FindObjectsOfType<Terrain>();
             foreach (Terrain eachTerrain in terrains)
             {
@@ -35,6 +112,8 @@ namespace MapMakerTools
 
         private static void NoTerrainError()
         {
+            Debug.Log("  Setting terrain to maximum accuracy.");
+
             Terrain[] terrains = Object.FindObjectsOfType<Terrain>();
             foreach (Terrain eachTerrain in terrains)
             {
@@ -44,16 +123,29 @@ namespace MapMakerTools
             }
         }
 
-        private static void All()
+        private static void None()
         {
-            HideTrees();
-            HideGrass();
+            NoTrees();
+            NoGrass();
             NoTerrainError();
         }
 
-        private static void ResetAll()
+        private static void Full()
         {
+            FullTrees();
+            FullGrass();
+            NoTerrainError();
+        }
+
+        private static void Reset()
+        {
+            Debug.Log("  Restoring all settings.");
             GameManager.GetQualitySettingsManager().ApplyCurrentQualitySettings();
+        }
+
+        private static string GetEnabledStatus(bool enabled)
+        {
+            return enabled ? "enabled" : "disabled";
         }
     }
 }
