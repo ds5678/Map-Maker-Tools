@@ -8,27 +8,32 @@ namespace MapMakerTools
     {
         public static void OnLoad()
         {
-            uConsole.RegisterCommand("Faithful-Cartographer-Show-Incomplete-Regions", new uConsole.DebugCommand(ShowIncompleteRegions));
-            uConsole.RegisterCommand("Faithful-Cartographer-Show-Missing-Places-In-Current-Region", new uConsole.DebugCommand(ShowMissingPlaces));
+            uConsole.RegisterCommand("FaithfulCartographer-ShowIncompleteRegions", new uConsole.DebugCommand(ShowIncompleteRegions));
+            uConsole.RegisterCommand("FaithfulCartographer-ShowMissingPlacesInCurrentRegion", new uConsole.DebugCommand(ShowMissingPlacesInCurrentRegion));
         }
 
         private static void ShowIncompleteRegions()
         {
+            int count = 0;
+
             Dictionary<string, bool> mappedRegions = GameManager.GetAchievementManagerComponent().m_MappedRegions;
             foreach (string eachRegion in mappedRegions.Keys)
             {
                 if (!mappedRegions[eachRegion])
                 {
                     Debug.Log("Incomplete Region: " + eachRegion);
+                    count++;
                 }
             }
+
+            Debug.Log(count + " incomplete regions.");
         }
 
-        private static void ShowMissingPlaces()
+        private static void ShowMissingPlacesInCurrentRegion()
         {
-            MapDetailManager mapDetailManager = GameManager.GetMapDetailManager();
-
             int count = 0;
+
+            MapDetailManager mapDetailManager = GameManager.GetMapDetailManager();
             List<MapDetail> m_MapDetailObjects = (List<MapDetail>)AccessTools.Field(mapDetailManager.GetType(), "m_MapDetailObjects").GetValue(mapDetailManager);
             foreach (MapDetail eachMapDetail in m_MapDetailObjects)
             {
