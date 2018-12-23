@@ -30,17 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony" />
     <Reference Include="Assembly-CSharp" />
     <Reference Include="Assembly-CSharp-firstpass" />
-    <Reference Include="Harmony" />
-    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Steam\SteamApps\common\TheLongDark\tld_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.TerrainModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\Steam\SteamApps\common\TheLongDark\tld_Data\Managed\UnityEngine.TerrainModule.dll</HintPath>
-    </Reference>
+    <Reference Include="UnityEngine.CoreModule" />
+    <Reference Include="UnityEngine.TerrainModule" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

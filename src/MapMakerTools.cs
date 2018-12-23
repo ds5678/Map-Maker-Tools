@@ -43,8 +43,8 @@ namespace MapMakerTools
 
         private static void ToggleBloom()
         {
-            GameManager.GetCameraEffects().m_AmplifyBloom.enabled = !GameManager.GetCameraEffects().m_AmplifyBloom.enabled;
-            Debug.Log("  Bloom is " + GetEnabledStatus(GameManager.GetCameraEffects().m_AmplifyBloom.enabled));
+            GameManager.GetCameraEffects().m_Bloom.active = !GameManager.GetCameraEffects().m_Bloom.active;
+            Debug.Log("  Bloom is " + GetEnabledStatus(GameManager.GetCameraEffects().m_Bloom.active));
         }
 
         private static void ToggleContrast()
@@ -55,8 +55,8 @@ namespace MapMakerTools
 
         private static void ToggleVignette()
         {
-            GameManager.GetCameraEffects().m_Vignetting.enabled = !GameManager.GetCameraEffects().m_Vignetting.enabled;
-            Debug.Log("  Vignette is " + GetEnabledStatus(GameManager.GetCameraEffects().m_Vignetting.enabled));
+            GameManager.GetCameraEffects().Vignette().active = !GameManager.GetCameraEffects().Vignette().active;
+            Debug.Log("  Vignette is " + GetEnabledStatus(GameManager.GetCameraEffects().Vignette().active));
         }
 
         private static void FullTrees()
