@@ -8,24 +8,24 @@ namespace MapMakerTools
 
         public static void OnLoad()
         {
-            uConsole.RegisterCommand("MapMaking-FullTrees", new uConsole.DebugCommand(FullTrees));
-            uConsole.RegisterCommand("MapMaking-FullGrass", new uConsole.DebugCommand(FullGrass));
-            uConsole.RegisterCommand("MapMaking-Full", new uConsole.DebugCommand(Full));
+            uConsole.RegisterCommand("MapMaking-FullTrees", new System.Action(FullTrees));
+            uConsole.RegisterCommand("MapMaking-FullGrass", new System.Action(FullGrass));
+            uConsole.RegisterCommand("MapMaking-Full", new System.Action(Full));
 
-            uConsole.RegisterCommand("MapMaking-NoTrees", new uConsole.DebugCommand(NoTrees));
-            uConsole.RegisterCommand("MapMaking-NoGrass", new uConsole.DebugCommand(NoGrass));
-            uConsole.RegisterCommand("MapMaking-None", new uConsole.DebugCommand(None));
+            uConsole.RegisterCommand("MapMaking-NoTrees", new System.Action(NoTrees));
+            uConsole.RegisterCommand("MapMaking-NoGrass", new System.Action(NoGrass));
+            uConsole.RegisterCommand("MapMaking-None", new System.Action(None));
 
-            uConsole.RegisterCommand("MapMaking-NoTerrainError", new uConsole.DebugCommand(NoTerrainError));
+            uConsole.RegisterCommand("MapMaking-NoTerrainError", new System.Action(NoTerrainError));
 
-            uConsole.RegisterCommand("MapMaking-ToggleBloom", new uConsole.DebugCommand(ToggleBloom));
-            uConsole.RegisterCommand("MapMaking-ToggleContrast", new uConsole.DebugCommand(ToggleContrast));
-            uConsole.RegisterCommand("MapMaking-ToggleVignette", new uConsole.DebugCommand(ToggleVignette));
+            uConsole.RegisterCommand("MapMaking-ToggleBloom", new System.Action(ToggleBloom));
+            uConsole.RegisterCommand("MapMaking-ToggleContrast", new System.Action(ToggleContrast));
+            uConsole.RegisterCommand("MapMaking-ToggleVignette", new System.Action(ToggleVignette));
 
-            uConsole.RegisterCommand("MapMaking-ShadowDistance", new uConsole.DebugCommand(ShadowDistance));
-            uConsole.RegisterCommand("MapMaking-NoShadows", new uConsole.DebugCommand(NoShadows));
+            uConsole.RegisterCommand("MapMaking-ShadowDistance", new System.Action(ShadowDistance));
+            uConsole.RegisterCommand("MapMaking-NoShadows", new System.Action(NoShadows));
 
-            uConsole.RegisterCommand("MapMaking-Reset", new uConsole.DebugCommand(Reset));
+            uConsole.RegisterCommand("MapMaking-Reset", new System.Action(Reset));
         }
 
         private static void ShadowDistance()
@@ -80,6 +80,18 @@ namespace MapMakerTools
             {
                 eachTerrain.treeDistance = 0;
             }
+            //MeshRenderer[] meshRenderers = Object.FindObjectsOfType<MeshRenderer>();
+            //Object[] objects = Object.FindObjectsOfType<Object>();
+            //foreach(Object obj in objects)
+            //{
+            //    string name = obj.name.ToLower();
+            //    if (name.Contains("trn_pinetree") || name.Contains("trn_burnttree"))
+            //    {
+            //        //renderer.enabled = false;
+            //        Object.Destroy(obj);
+            //        MelonLoader.MelonLogger.Log("Destroyed '{0}'",name);
+            //    }
+            //}
         }
 
         private static void NoShadows()

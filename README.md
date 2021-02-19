@@ -22,11 +22,5 @@ Additional commands:
 * `MapMaking-Full` - Do `MapMaking-NoTerrainError` + `MapMaking-FullGrass` + `MapMaking-FullTrees`
 * `MapMaking-Reset` - Revert all settings back to the previously selected quality settings.
 
-* `FaithfulCartographer-ShowIncompleteRegions` - List regions that are still considered incomplete for the 'Faithful Cartographer' achievement
-* `FaithfulCartographer-ShowMissingPlacesInCurrentRegion` - List places in the current region that are still considered missing for the 'Faithful Cartographer' achievement
-
 
 None of the settings will be persistent and revert back to the previously selected quality settings when changing scenes or closing the game.
-
-
-Requires the [Mod Loader](https://github.com/zeobviouslyfakeacc/ModLoaderInstaller) to be used.
