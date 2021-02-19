@@ -24,3 +24,5 @@ Additional commands:
 
 
 None of the settings will be persistent and revert back to the previously selected quality settings when changing scenes or closing the game.
+
+The trees in Ash Canyon and Bleak Inlet are special; they do not get removed by this mod (at least not yet). Hushed River Valley also has some of these special trees.
